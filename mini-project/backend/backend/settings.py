@@ -17,6 +17,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django_seed',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'drf_yasg',
     'app',  # Your app name here
 ]
 
@@ -47,7 +49,9 @@ TEMPLATES = [
         },
     },
 ]
-
+REST_FRAMEWORK = {'DEFAULT_SCHEMA_CLASS':'rest_framework.schemas.coreapi.AutoSchema',
+                  'DEFAULT_PERMISSION_CLASSES':'rest_framework.permissions.AllowAny',
+                   }
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
@@ -83,3 +87,11 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+# CSRF settings
+CSRF_COOKIE_NAME = 'csrftoken'
+CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'
+CSRF_TRUSTED_ORIGINS = [
+    'https://yourdomain.com',
+    'https://anotherdomain.com',
+]

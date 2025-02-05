@@ -1,27 +1,26 @@
-import json
-from django.http import HttpResponse, JsonResponse
-from ..services.bookService import *
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from ..services.bookService import get_all_books, create_book
 
+@api_view(['GET'])
 def index(request):
-    return HttpResponse("Welcome to the Bookstore!")
+    return Response({"message": "Welcome to the Bookstore!"}, status=status.HTTP_200_OK)
 
+@api_view(['GET'])
 def get_data(request):
     data = {
         "message": "Hello, World!"
     }
-    return JsonResponse(data)
+    return Response(data, status=status.HTTP_200_OK)
 
-def get_all_books(request):
-    books = get_all_books_service()
-    return JsonResponse(books, safe=False)
+@api_view(['GET'])
+def get_books_view(request):
+    books = get_all_books()
+    return Response(books, status=status.HTTP_200_OK)
 
-@csrf_exempt
-def create_book(request):
-    if request.method == 'POST':
-            data = json.loads(request.body)
-            title = data.get('title')
-            author = data.get('author')
-            published_date = data.get('published_date')
-            bookSave = create_book(data)
-            
-            
+@api_view(['POST'])
+def create_book_view(request):
+    data = request.data
+    bookSave = create_book(data)
+    return Response(bookSave, status=status.HTTP_201_CREATED)
