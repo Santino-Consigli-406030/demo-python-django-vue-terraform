@@ -9,7 +9,7 @@ schema_view = get_schema_view(
     description="Test description",
     version="v1",
     public=True,
-    permission_classes=(permissions.AllowAny,),
+    permission_classes=[permissions.AllowAny],
 )
 
 urlpatterns = [

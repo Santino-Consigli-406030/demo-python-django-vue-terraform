@@ -19,12 +19,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_yasg',
+    'corsheaders',  # Añadir corsheaders
     'app',  # Your app name here
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Añadir CorsMiddleware
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -49,9 +51,11 @@ TEMPLATES = [
         },
     },
 ]
-REST_FRAMEWORK = {'DEFAULT_SCHEMA_CLASS':'rest_framework.schemas.coreapi.AutoSchema',
-                  'DEFAULT_PERMISSION_CLASSES':'rest_framework.permissions.AllowAny',
-                   }
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+}
+
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
@@ -95,3 +99,13 @@ CSRF_TRUSTED_ORIGINS = [
     'https://yourdomain.com',
     'https://anotherdomain.com',
 ]
+
+# Configuración de CORS
+CORS_ALLOW_ALL_ORIGINS = True  # Permitir todos los orígenes (no recomendado para producción)
+
+# O especificar los orígenes permitidos
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:8080",
+#     "http://127.0.0.1:8080",
+#     # Agrega otros orígenes permitidos aquí
+# ]
